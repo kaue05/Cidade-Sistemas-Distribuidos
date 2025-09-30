@@ -46,7 +46,8 @@ Sensores → Gateway ↔ Processador → Cloud
 ├── gateway.js # Agregador de dados (central)
 ├── processador.js # Calcula médias por bairro
 ├── cloud.js # Simulação da Cloud
-└── README.md # Documentação do projeto
+├── README.md # Documentação do projeto
+└── start.bat # Simula as 8 maquinas abrindo vários prompts de comando (Por favor não se assuste 👻😂)
 ```
 
 ---
