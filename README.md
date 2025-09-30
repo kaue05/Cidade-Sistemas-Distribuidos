@@ -2,7 +2,7 @@
 
 Projeto desenvolvido para a disciplina de **Sistemas Distribuídos**.  
 O desafio simula o uso de sensores de **temperatura, umidade e insolação** espalhados em cinco bairros de uma cidade.  
-Esses sensores enviam dados para um **gateway**, que depois comunica com um **processador** e, por fim, repassa os dados processados para a **Cloud**.
+Esses sensores enviam dados solicitados para um **gateway**, que depois escuta as solicitações da **cloud** e, por fim, repassa e recebe os dados tratados do **processador** e armazena em um "Banco de Dados".
 
 ---
 
@@ -10,10 +10,11 @@ Esses sensores enviam dados para um **gateway**, que depois comunica com um **pr
 - Compreender a comunicação entre processos usando **Sockets em JavaScript (Node.js)**.  
 - Criar uma arquitetura distribuída capaz de:
   1. Gerar dados simulados a partir de sensores (dados aleatórios).  
-  2. Coletar dados no gateway.  
-  3. Processar os dados em outra máquina (cálculo de médias).  
-  4. Retornar os resultados ao gateway.  
-  5. Enviar dados finais para a "Cloud".  
+  2. Coletar dados dos sensores no gateway.
+  3. Coletar dados do gateway no cloud.
+  4. Repassar dados recebidos do cloud para o processador.
+  5. Processar os dados no processador (cálculo de médias).  
+  6. Receber dados do processador e armazenar em um Banco de Dados.
 
 ---
 
@@ -86,13 +87,13 @@ npx ts-node sensor.js Oeste 5004
 
 🔍 Exemplo de Saída
 Sensor
-```css
+```bash
 Sensor Centro rodando em 127.0.0.1:5000
 Gateway conectado ao sensor do bairro Centro (porta 5000)`
 ```
 
 Gateway
-```css
+```bash
 Gateway aguardando Cloud em 127.0.0.1:6000
 Cloud conectado ao Gateway
 Cloud requisitou dados -> consultando sensores...
@@ -100,7 +101,7 @@ Solicitando dados do Sensor na porta 5000
 ```
 
 Processador
-```css
+```bash
 Processador aguardando Cloud em 127.0.0.1:7000
 Cloud conectado ao Processador
 Processador calculou::
@@ -111,7 +112,7 @@ Processador calculou::
 ```
 
 Cloud
-```css
+```bash
 Cloud recebeu do Gateway::
 {
   Centro: { temperatura: '23.0', umidade: '66.0', insolacao: '500.0' },
