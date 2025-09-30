@@ -20,7 +20,7 @@ Esses sensores enviam dados solicitados para um **gateway**, que depois escuta a
 
 ## 🏗️ Arquitetura da Solução
 
-Sensores → Gateway ↔ Cloud → Processador
+Sensores → Gateway ↔ Cloud ↔ Processador
 
 ```yaml
 - **Sensores:** (SERVIDOR) geram valores aleatórios de temperatura, umidade e insolação.  
