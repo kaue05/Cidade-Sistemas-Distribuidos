@@ -22,10 +22,10 @@ Esses sensores enviam dados para um **gateway**, que depois comunica com um **pr
 Sensores → Gateway ↔ Processador → Cloud
 
 ```yaml
-- **Sensores:** geram valores aleatórios de temperatura, umidade e insolação.  
-- **Gateway:** recebe dados dos sensores, agrega e envia ao processador.  
-- **Processador:** calcula médias por bairro e devolve ao gateway.  
-- **Cloud:** simulação de destino final (pode ser apenas console.log).
+- **Sensores:** (SERVIDOR) geram valores aleatórios de temperatura, umidade e insolação.  
+- **Gateway:** (SERVIDOR/CLIENTE) recebe dados dos Sensores, agrega e envia ao cloud quando solicitado.    
+- **Cloud:** (CLIENTE/CLIENTE) recebe dados do Gateway, envia para o Processador, e recebe os dados tratados do processador
+- **Processador:** (SERVIDOR) calcula médias por bairro e devolve à Cloud.
 ```
 
 ---
@@ -62,17 +62,17 @@ Abra 4 terminais diferentes e rode nessa ordem:
 Gateway
 
 ```bash
-node gateway.js
+npm run gateway
 ```
 
 Processador
 ```bash
-node processador.js
+npm run processador
 ```
 
 Cloud
 ```bash
-node cloud.js
+npm run cloud
 ```
 
 Sensores (um por bairro)
@@ -87,16 +87,23 @@ npx ts-node sensor.js Oeste 5004
 🔍 Exemplo de Saída
 Sensor
 ```css
-Enviando dados do bairro Centro: { temperatura: '22.5', umidade: '65.2', insolacao: '450.0' }
+Sensor Centro rodando em 127.0.0.1:5000
+Gateway conectado ao sensor do bairro Centro (porta 5000)`
+```
+
 Gateway
-arduino
-Dados recebidos do Centro
-Encaminhando para processador...
+```css
+Gateway aguardando Cloud em 127.0.0.1:6000
+Cloud conectado ao Gateway
+Cloud requisitou dados -> consultando sensores...
+Solicitando dados do Sensor na porta 5000
 ```
 
 Processador
 ```css
-Médias calculadas:
+Processador aguardando Cloud em 127.0.0.1:7000
+Cloud conectado ao Processador
+Processador calculou::
 {
   Centro: { temperatura: '23.0', umidade: '66.0', insolacao: '500.0' },
   Norte:  { temperatura: '20.5', umidade: '70.0', insolacao: '600.0' }
@@ -105,9 +112,12 @@ Médias calculadas:
 
 Cloud
 ```css
-[Cloud] Dados finais recebidos:
+Cloud recebeu do Gateway::
 {
   Centro: { temperatura: '23.0', umidade: '66.0', insolacao: '500.0' },
-  Norte:  { temperatura: '20.5', umidade: '70.0', insolacao: '600.0' }
+}
+Cloud recebeu do Processador:
+{
+  Centro: { temperatura: '23.0', umidade: '66.0', insolacao: '500.0' },
 }
 ```

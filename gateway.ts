@@ -3,7 +3,7 @@ import * as net from "net";
 const host = "127.0.0.1"; // alterar para porta gateway
 // const ipSensor = "172.23.129.94";
 const gatewayPort = 6000; // servidor do gateway
- 
+
 // Lista de sensores (cada um escuta em uma porta diferente)
 // const sensores = [5000, 5001, 5002, 5003, 5004]; // pode adicionar quantos quiser
 
