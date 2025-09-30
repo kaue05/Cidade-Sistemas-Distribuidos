@@ -2,6 +2,8 @@ import * as net from "net";
 import * as fs from "fs";
 
 const host = "127.0.0.1";
+const ipGateway = "127.0.0.1"; // alterar para porta gateway
+const ipProcessador = "127.0.0.1"; // alterar para porta processador
 const gatewayPort = 6000;
 const processadorPort = 7000;
 
@@ -9,7 +11,7 @@ const processadorPort = 7000;
 function requisitarDados() {
   const clientGateway = new net.Socket();
 
-  clientGateway.connect(gatewayPort, host, () => {
+  clientGateway.connect(gatewayPort, ipGateway, () => {
     console.log("Cloud conectado ao Gateway, requisitando dados...");
     clientGateway.write("GET_DADOS");
   });
@@ -23,7 +25,7 @@ function requisitarDados() {
 
     // Agora enviamos um array válido para o processador
     const clientProcessador = new net.Socket();
-    clientProcessador.connect(processadorPort, host, () => {
+    clientProcessador.connect(processadorPort, ipProcessador, () => {
       clientProcessador.write(JSON.stringify(objetos));
     });
 

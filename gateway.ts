@@ -1,10 +1,21 @@
 import * as net from "net";
 
-const host = "127.0.0.1";
+const host = "127.0.0.1"; // alterar para porta gateway
+// const ipSensor = "172.23.129.94";
 const gatewayPort = 6000; // servidor do gateway
-
+ 
 // Lista de sensores (cada um escuta em uma porta diferente)
-const sensores = [5000, 5001, 5002, 5003, 5004]; // pode adicionar quantos quiser
+// const sensores = [5000, 5001, 5002, 5003, 5004]; // pode adicionar quantos quiser
+
+// Lista de sensores (cada um escuta em um ip diferente)
+// const sensores = [{ "ip": "172.23.129.94", "porta": 5000 }, { "ip": "172.23.135.239", "porta": 5000 }, { "ip": "172.23.129.95", "porta": 5000 }]
+const sensores = [
+  { ip: "127.0.0.1", porta: 5000 },
+  { ip: "127.0.0.1", porta: 5001 },
+  { ip: "127.0.0.1", porta: 5002 },
+  { ip: "127.0.0.1", porta: 5003 },
+  { ip: "127.0.0.1", porta: 5004 },
+];
 
 // Servidor do Gateway (escuta Cloud)
 const server = net.createServer((socket) => {
@@ -17,10 +28,12 @@ const server = net.createServer((socket) => {
       console.log("Cloud requisitou dados -> consultando sensores...");
 
       // Para cada sensor, abrir conexão e pedir dados
-      sensores.forEach((porta) => {
+      sensores.forEach((ipPorta) => {
         const clientSensor = new net.Socket();
+        const ip = ipPorta.ip
+        const porta = ipPorta.porta
 
-        clientSensor.connect(porta, host, () => {
+        clientSensor.connect(porta, ip, () => {
           console.log(`Solicitando dados do Sensor na porta ${porta}`);
         });
 

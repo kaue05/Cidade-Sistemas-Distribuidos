@@ -1,6 +1,7 @@
 import * as net from "net";
 
 const BAIRRO: string = process.argv[2] ?? "Centro";
+const HOST: string = "127.0.0.1"; // alterar para porta sensor
 const PORTA: number = parseInt(process.argv[3] ?? "5000");
 
 // Função que gera dados fake
@@ -30,6 +31,6 @@ const server = net.createServer((socket) => {
   });
 });
 
-server.listen(PORTA, () => {
-  console.log(`Sensor (${BAIRRO}) rodando na porta ${PORTA}`);
+server.listen(PORTA, HOST, () => {
+  console.log(`Sensor (${BAIRRO}) rodando em ${HOST}:${PORTA}`);
 });

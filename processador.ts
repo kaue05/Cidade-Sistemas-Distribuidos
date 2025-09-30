@@ -1,6 +1,6 @@
 import * as net from "net";
 
-const host = "127.0.0.1";
+const host = "127.0.0.1"; // alterar para porta processador
 const port = 7000;
 
 // Tipos
